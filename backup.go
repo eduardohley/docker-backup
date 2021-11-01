@@ -10,7 +10,6 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
-	"syscall"
 	"time"
 
 	"github.com/docker/docker/api/types"
@@ -87,10 +86,6 @@ func collectFileTar(path string, info os.FileInfo, err error) error {
 	}
 
 	th.Name = path
-	if si, ok := info.Sys().(*syscall.Stat_t); ok {
-		th.Uid = int(si.Uid)
-		th.Gid = int(si.Gid)
-	}
 
 	if err := tw.WriteHeader(th); err != nil {
 		return err
